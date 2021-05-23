@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { View, Button, TextInput, Image } from 'react-native';
+import { useDispatch } from 'react-redux';
 
-const Join = ({ joinChat }) => {
+const Join = ({ navigation }) => {
   const [username, setUsername] = useState('');
+  const dispatch = useDispatch();
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Image
@@ -18,7 +21,13 @@ const Join = ({ joinChat }) => {
           style={{ fontSize: 30, textAlign: 'center' }}
           placeholder="Seu nome"
         />
-        <Button title="Entrar" onPress={() => joinChat(username)} />
+        <Button
+          title="Entrar"
+          onPress={() => {
+            dispatch({ type: 'server/join', payload: username });
+            navigation.navigate('App');
+          }}
+        />
       </View>
     </View>
   );
